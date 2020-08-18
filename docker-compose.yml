@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    dockerihv:
+      image: ironelisherrerav/docker.compose.form:v1.9
+      ports:
+        - "80:8080"
+      environment:
+       - SERVER_PORT=8080
+       - spring.datasource.url=jdbc:mysql://mysqldb:3306/EncuestaForm
+      networks:
+        - practica-docker
+      depends_on:
+        - mysqldb
+
+    mysqldb:
+      image: mysql:5.7.26
+      ports:
+       - 33006:3306
+      environment:
+        - MYSQL_USER=root
+        - MYSQL_ROOT_PASSWORD=Ir0N3L1sHv
+        - MYSQL_DATABASE=EncuestaForm
+      volumes:
+         - ~/mysql-data:/var/lib/mysql
+      networks:
+        - practica-docker
+networks:
+  practica-docker:
